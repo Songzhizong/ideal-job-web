@@ -86,7 +86,7 @@ export const constantRoutes = [
         path: '',
         component: () => import('@/views/instance/jobInstance'),
         name: 'Job Instance',
-        meta: {title: 'Job Instance', icon: 'el-icon-alarm-clock', affix: true}
+        meta: {title: 'Job Instance', icon: 'el-icon-notebook-2', affix: true}
       }
     ]
   },

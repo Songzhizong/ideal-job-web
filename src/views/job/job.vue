@@ -151,7 +151,7 @@
             type="primary"
             size="mini"
             plain
-            @click="handleQueryLog(row)">日志
+            @click="handleQueryLog(row)">记录
           </el-button>
           <el-button
             icon="el-icon-video-play"
@@ -391,7 +391,7 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        size: 20,
+        size: 10,
         workerId: undefined,
         jobName: undefined,
         executorHandler: undefined,

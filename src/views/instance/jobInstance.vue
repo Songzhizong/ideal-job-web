@@ -52,46 +52,46 @@
       highlight-current-row
       style="width: 100%;">
       <el-table-column
-        label="Job ID"
+        label="任务名称"
         prop="title"
         align="center"
         min-width="190px">
         <template slot-scope="{row}">
-          <span>{{ row.jobId }}</span>
+          <span>{{ row.jobName }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="触发类型"
         prop="title"
         align="center"
-        min-width="80px">
+        width="90px">
         <template slot-scope="{row}">
           <span>{{ row.triggerType }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="调度时间"
-        prop="title"
-        align="center"
-        min-width="160px">
-        <template slot-scope="{row}">
-          <span>{{ row.createdTime }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="执行时间"
         prop="title"
         align="center"
-        min-width="160px">
+        width="180px">
         <template slot-scope="{row}">
           <span>{{ row.handleTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="耗时"
+          prop="title"
+          align="center"
+          width="180px">
+        <template slot-scope="{row}">
+          <span>{{ row.timeConsuming }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="执行状态"
         prop="title"
         align="center"
-        min-width="140px">
+        width="140px">
         <template slot-scope="{row}">
           <el-button plain :type="parseHandleStatus(row.handleStatus).type"
                      :icon="parseHandleStatus(row.handleStatus).icon"
@@ -103,7 +103,7 @@
         label="执行机器"
         prop="title"
         align="center"
-        min-width="180px">
+        width="180px">
         <template slot-scope="{row}">
           <span>{{ row.executorInstance }}</span>
         </template>
@@ -155,7 +155,7 @@ export default {
       list: null,
       listQuery: {
         page: 1,
-        size: 20,
+        size: 10,
         workerId: undefined,
         jobId: undefined,
         parentId: undefined,
