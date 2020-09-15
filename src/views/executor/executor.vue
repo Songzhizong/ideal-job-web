@@ -3,18 +3,18 @@
     <div class="filter-container">
 
       <el-input
-          v-model="listQuery.title"
-          placeholder="Title"
-          style="width: 200px; margin-right: 2em;"
-          class="filter-item"
-          @keyup.enter.native="handleFilter"/>
+        v-model="listQuery.title"
+        placeholder="Title"
+        style="width: 200px; margin-right: 2em;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"/>
 
       <el-input
-          v-model="listQuery.appName"
-          placeholder="App name"
-          style="width: 200px; margin-right: 2em;"
-          class="filter-item"
-          @keyup.enter.native="handleFilter"/>
+        v-model="listQuery.appName"
+        placeholder="App name"
+        style="width: 200px; margin-right: 2em;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"/>
       <el-button circle
                  icon="el-icon-search" class="filter-item"
                  type="primary"
@@ -22,47 +22,47 @@
                  @click="handleFilter"/>
 
       <el-button circle
-          class="filter-item"
-          type="primary"
-          icon="el-icon-plus"
-          @click="handleCreate"/>
+                 class="filter-item"
+                 type="primary"
+                 icon="el-icon-plus"
+                 @click="handleCreate"/>
     </div>
     <p></p>
 
     <el-table
-        :key="tableKey"
-        v-loading="listLoading"
-        :data="list"
-        border
-        fit
-        highlight-current-row
-        style="width: 100%;">
+      :key="tableKey"
+      v-loading="listLoading"
+      :data="list"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;">
 
       <el-table-column
-          label="ID"
-          prop="id"
-          align="center"
-          width="220px">
+        label="ID"
+        prop="id"
+        align="center"
+        width="220px">
         <template slot-scope="{row}">
           <span>{{ row.workerId }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-          label="Title"
-          prop="title"
-          align="center"
-          min-width="200px">
+        label="Title"
+        prop="title"
+        align="center"
+        min-width="200px">
         <template slot-scope="{row}">
           <span>{{ row.title }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-          label="App name"
-          prop="appName"
-          align="center"
-          min-width="200px">
+        label="App name"
+        prop="appName"
+        align="center"
+        min-width="200px">
         <template slot-scope="{row}">
           <span>{{ row.appName }}</span>
         </template>
@@ -73,16 +73,16 @@
           <el-tag :type="row.online | statusFilter" v-if="row.online===false"><b>OFFLINE</b>
           </el-tag>
           <el-tag :type="row.online | statusFilter" v-if="row.online===true"><b
-              style="margin-left: 4px;margin-right: 4px">ONLINE</b></el-tag>
+            style="margin-left: 4px;margin-right: 4px">ONLINE</b></el-tag>
         </template>
       </el-table-column>
 
 
       <el-table-column
-          label="操作"
-          align="center"
-          width="230"
-          class-name="small-padding fixed-width">
+        label="操作"
+        align="center"
+        width="230"
+        class-name="small-padding fixed-width">
 
         <template slot-scope="{row,$index}">
           <el-button icon="el-icon-edit-outline"
@@ -91,9 +91,9 @@
           </el-button>
 
           <el-button icon="el-icon-delete-solid"
-              size="mini"
-              type="danger"
-              @click="handleDelete(row)"
+                     size="mini"
+                     type="danger"
+                     @click="handleDelete(row)"
           >删除
           </el-button>
         </template>
@@ -101,22 +101,22 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.size"
-        @pagination="getList"
+      v-show="total>0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.size"
+      @pagination="getList"
     />
 
     <el-dialog width="660px" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 
       <el-form
-          ref="dataForm"
-          :rules="rules"
-          :model="temp"
-          label-position="left"
-          label-width="100px"
-          style="width: 500px; margin-left:50px;">
+        ref="dataForm"
+        :rules="rules"
+        :model="temp"
+        label-position="left"
+        label-width="100px"
+        style="width: 500px; margin-left:50px;">
         <el-form-item label="Title" prop="title">
           <el-input v-model="temp.title"/>
         </el-form-item>
@@ -128,8 +128,8 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
         <el-button
-            type="primary"
-            @click="dialogStatus==='create'?createData():updateData()">确定
+          type="primary"
+          @click="dialogStatus==='create'?createData():updateData()">确定
         </el-button>
       </div>
     </el-dialog>
@@ -148,6 +148,7 @@
   </div>
 </template>
 
+<!--suppress JSUnresolvedVariable, SpellCheckingInspection -->
 <script>
 import {
   query,
@@ -303,7 +304,7 @@ export default {
       });
     },
     handleDelete(row) {
-      del(row.workerId).then((response) => {
+      del(row.workerId).then(() => {
         this.$notify({
           title: "成功",
           message: "删除成功",

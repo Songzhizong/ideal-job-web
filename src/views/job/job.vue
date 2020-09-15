@@ -3,50 +3,50 @@
     <div class="filter-container">
 
       <el-select
-          v-model="listQuery.workerId"
-          clearable placeholder="选择执行器"
-          style="width: 200px; margin-right: 1em;"
-          @change="handleFilter">
+        v-model="listQuery.workerId"
+        clearable placeholder="选择执行器"
+        style="width: 200px; margin-right: 1em;"
+        @change="handleFilter">
         <el-option
-            v-for="item in workerList"
-            :key="item.workerId"
-            :label="item.title"
-            :value="item.workerId">
+          v-for="item in workerList"
+          :key="item.workerId"
+          :label="item.title"
+          :value="item.workerId">
           <span>{{ item.title + ' - ' }}</span>
           <span style="color: #8492a6; font-size: 13px">{{ item.appName }}</span>
         </el-option>
       </el-select>
 
       <el-select
-          v-model="listQuery.jobStatus"
-          clearable placeholder="任务状态"
-          style="width: 140px; margin-right: 1em;"
-          @change="handleFilter">
+        v-model="listQuery.jobStatus"
+        clearable placeholder="任务状态"
+        style="width: 140px; margin-right: 1em;"
+        @change="handleFilter">
         <el-option
-            key="1"
-            label="启用"
-            value="1">
+          key="1"
+          label="启用"
+          value="1">
         </el-option>
         <el-option
-            key="0"
-            label="停用"
-            value="0">
+          key="0"
+          label="停用"
+          value="0">
         </el-option>
       </el-select>
 
       <el-input
-          v-model="listQuery.jobName"
-          placeholder="任务名称"
-          style="width: 200px; margin-right: 1em;"
-          class="filter-item"
-          @keyup.enter.native="handleFilter"/>
+        v-model="listQuery.jobName"
+        placeholder="任务名称"
+        style="width: 200px; margin-right: 1em;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"/>
 
       <el-input
-          v-model="listQuery.executorHandler"
-          placeholder="Job Handler"
-          style="width: 200px; margin-right: 2em;"
-          class="filter-item"
-          @keyup.enter.native="handleFilter"/>
+        v-model="listQuery.executorHandler"
+        placeholder="Job Handler"
+        style="width: 200px; margin-right: 2em;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"/>
       <el-button circle
                  icon="el-icon-refresh" class="filter-item"
                  type="primary"
@@ -68,13 +68,13 @@
     <p></p>
 
     <el-table
-        :key="tableKey"
-        v-loading="listLoading"
-        :data="list"
-        border
-        fit
-        highlight-current-row
-        style="width: 100%;">
+      :key="tableKey"
+      v-loading="listLoading"
+      :data="list"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;">
 
       <!--      <el-table-column-->
       <!--          label="ID"-->
@@ -87,26 +87,26 @@
       <!--      </el-table-column>-->
 
       <el-table-column
-          label="任务名称"
-          prop="title"
-          align="center"
-          width="180px">
+        label="任务名称"
+        prop="title"
+        align="center"
+        width="180px">
         <template slot-scope="{row}">
           <span>{{ row.jobName }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-          label="执行模式"
-          prop="appName"
-          align="center"
-          min-width="200px">
+        label="执行模式"
+        prop="appName"
+        align="center"
+        min-width="200px">
         <template slot-scope="{row}">
           <span v-if="row.executeType==='BEAN'">
             <b>BEAN : </b>{{ row.executorHandler }}
           </span>
-          <span  v-if="row.executeType==='HTTP'"><b>Http Script</b></span>
-          <span  v-if="row.executeType==='LB_HTTP'"><b>Spring Cloud Http Script</b></span>
+          <span v-if="row.executeType==='HTTP'"><b>Http Script</b></span>
+          <span v-if="row.executeType==='LB_HTTP'"><b>Spring Cloud Http Script</b></span>
         </template>
       </el-table-column>
 
@@ -118,19 +118,19 @@
         </template>
       </el-table-column>
       <el-table-column
-          label="Cron"
-          prop="appName"
-          align="center"
-          min-width="160px">
+        label="Cron"
+        prop="appName"
+        align="center"
+        min-width="160px">
         <template slot-scope="{row}">
           <span>{{ row.cron }}</span>
         </template>
       </el-table-column>
       <el-table-column
-          label="下次调度时间"
-          prop="appName"
-          align="center"
-          width="200px">
+        label="下次调度时间"
+        prop="appName"
+        align="center"
+        width="200px">
         <template slot-scope="{row}">
           <!--suppress JSUnresolvedVariable -->
           <span v-if="row.nextTriggerTime!==null&&row.nextTriggerTime!==undefined">
@@ -141,56 +141,56 @@
       </el-table-column>
 
       <el-table-column
-          label="操作"
-          align="center"
-          width="280px"
-          class-name="small-padding fixed-width">
+        label="操作"
+        align="center"
+        width="280px"
+        class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button
-              icon="el-icon-notebook-2"
-              type="primary"
-              size="mini"
-              plain
-              @click="handleUpdate(row)">日志
+            icon="el-icon-notebook-2"
+            type="primary"
+            size="mini"
+            plain
+            @click="handleQueryLog(row)">日志
           </el-button>
           <el-button
-              icon="el-icon-video-play"
-              type="success"
-              size="mini"
-              v-if="row.jobStatus===0"
-              plain
-              @click="handleEnable(row)">启用
+            icon="el-icon-video-play"
+            type="success"
+            size="mini"
+            v-if="row.jobStatus===0"
+            plain
+            @click="handleEnable(row)">启用
           </el-button>
           <el-button
-              icon="el-icon-video-pause"
-              type="info"
-              size="mini"
-              v-if="row.jobStatus===1"
-              plain
-              @click="handleDisable(row)">停用
+            icon="el-icon-video-pause"
+            type="info"
+            size="mini"
+            v-if="row.jobStatus===1"
+            plain
+            @click="handleDisable(row)">停用
           </el-button>
 
           <el-dropdown>
             <el-button
-                type="primary"
-                size="mini"
-                style="margin-left: 1em">
+              type="primary"
+              size="mini"
+              style="margin-left: 1em">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item
-                  icon="el-icon-thumb"
-                  @click.native="handleTrigger(row)">触发
+                icon="el-icon-thumb"
+                @click.native="handleTrigger(row)">触发
               </el-dropdown-item>
               <el-dropdown-item
-                  icon="el-icon-edit-outline"
-                  @click.native="handleUpdate(row)">编辑
+                icon="el-icon-edit-outline"
+                @click.native="handleUpdate(row)">编辑
               </el-dropdown-item>
               <el-dropdown-item
-                  icon="el-icon-delete"
-                  style="color: #ff0000"
-                  @click.native="handleDelete(row)"
-                  divided>删除
+                icon="el-icon-delete"
+                style="color: #ff0000"
+                @click.native="handleDelete(row)"
+                divided>删除
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -199,34 +199,33 @@
     </el-table>
 
     <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.size"
-        @pagination="getList"
-    />
+      v-show="total>0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.size"
+      @pagination="getList"/>
 
     <el-dialog width="900px" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form
-          ref="dataForm"
-          :rules="rules"
-          :model="temp"
-          label-position="right"
-          label-width="100px"
-          style="margin-left:10px; margin-right: 20px">
+        ref="dataForm"
+        :rules="rules"
+        :model="temp"
+        label-position="right"
+        label-width="100px"
+        style="margin-left:10px; margin-right: 20px">
 
         <el-row :gutter="24">
           <el-col :span="12">
             <el-form-item label="执行器" prop="workerId">
               <el-select
-                  v-model="temp.workerId"
-                  clearable placeholder="选择执行器"
-                  style="width: 250px; margin-right: 1em;">
+                v-model="temp.workerId"
+                clearable placeholder="选择执行器"
+                style="width: 250px; margin-right: 1em;">
                 <el-option
-                    v-for="item in workerList"
-                    :key="item.workerId"
-                    :label="item.title"
-                    :value="item.workerId">
+                  v-for="item in workerList"
+                  :key="item.workerId"
+                  :label="item.title"
+                  :value="item.workerId">
                   <span>{{ item.title + ' - ' }}</span>
                   <span style="color: #8492a6; font-size: 13px">{{ item.appName }}</span>
                 </el-option>
@@ -244,14 +243,14 @@
           <el-col :span="12">
             <el-form-item label="路由策略" prop="routeStrategy">
               <el-select
-                  v-model="temp.routeStrategy"
-                  clearable placeholder="选择路由策略"
-                  style="width: 250px; margin-right: 1em;">
+                v-model="temp.routeStrategy"
+                clearable placeholder="选择路由策略"
+                style="width: 250px; margin-right: 1em;">
                 <el-option
-                    v-for="item in routeStrategy"
-                    :key="item.name"
-                    :label="item.label"
-                    :value="item.name"/>
+                  v-for="item in routeStrategy"
+                  :key="item.name"
+                  :label="item.label"
+                  :value="item.name"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -266,24 +265,24 @@
           <el-col :span="12">
             <el-form-item label="执行模式" prop="executeType">
               <el-select
-                  v-model="temp.executeType"
-                  clearable placeholder="选择执行器"
-                  style="width: 250px; margin-right: 1em;">
+                v-model="temp.executeType"
+                clearable placeholder="选择执行器"
+                style="width: 250px; margin-right: 1em;">
                 <el-option
-                    v-for="item in executeType"
-                    :key="item.name"
-                    :label="item.label"
-                    :value="item.name"/>
+                  v-for="item in executeType"
+                  :key="item.name"
+                  :label="item.label"
+                  :value="item.name"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item
-                label="JobHandler"
-                :prop="temp.executeType==='BEAN'?'executorHandler':''">
+              label="JobHandler"
+              :prop="temp.executeType==='BEAN'?'executorHandler':''">
               <el-input
-                  v-model="temp.executorHandler"
-                  :disabled="temp.executeType!=='BEAN'"/>
+                v-model="temp.executorHandler"
+                :disabled="temp.executeType!=='BEAN'"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -298,8 +297,8 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
         <el-button
-            type="primary"
-            @click="dialogStatus==='create'?createData():updateData()">确定
+          type="primary"
+          @click="dialogStatus==='create'?createData():updateData()">确定
         </el-button>
       </div>
     </el-dialog>
@@ -313,13 +312,13 @@
       <!--          @click="deleteData">确定-->
       <!--      </el-button>-->
       <el-button
-          size="small"
-          round
-          style="width: 100%"
-          type="danger"
-          plain
-          :disabled="deleteJobId!==temp.jobId"
-          @click="deleteData">我确认删除该任务
+        size="small"
+        round
+        style="width: 100%"
+        type="danger"
+        plain
+        :disabled="deleteJobId!==temp.jobId"
+        @click="deleteData">我确认删除该任务
       </el-button>
     </el-dialog>
 
@@ -622,6 +621,14 @@ export default {
         });
         this.getList();
       });
+    },
+    handleQueryLog(row) {
+      this.$router.push({
+        path: '/jobInstance',
+        query: {
+          jobId: row.jobId
+        }
+      })
     },
     handleDelete(row) {
       this.temp = Object.assign({}, row); // copy obj
